@@ -1,8 +1,8 @@
-#Automatic Dataset Composition (ADC)
+# Automatic Dataset Composition (ADC)
 
 This tool allows splitting out files to create a dataset. 
 
-##Instructions
+## Instructions
 
 - Save files in a directory in any location of your computer.
 - Start this script and insert the parameters required.
