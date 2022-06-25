@@ -1,6 +1,14 @@
-import os, shutil
+import os, shutil, zipfile
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+def zipdir(path, ziph):
+    # ziph is zipfile handle
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file),
+                       os.path.relpath(os.path.join(root, file),
+                                       os.path.join(path, '..')))
 
 
 def percentage_calculation(perc_value, total_elm):
@@ -56,6 +64,9 @@ def copy_and_split_files(dir_path, dataset_split, train_dir, val_dir, test_dir, 
         print(f'{file_list_dir.__len__()} file(s) cannot be included inside the dataset.\nAnyway your dataset has '
               f'created at the following path {main_dir}, try another solution to improve performances. \n',
               file=open(path_report, 'a'))
+
+    with zipfile.ZipFile(main_dir + '.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+        zipdir(main_dir, zipf)
 
 
 def dataset_creation(original_dir_path, main_dir_name, dataset_split, path_report):
